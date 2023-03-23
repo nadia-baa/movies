@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping()
 public class MovieController {
 
     @Autowired
@@ -21,17 +21,14 @@ public class MovieController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @GetMapping
+    @GetMapping("/movies")
     public List<Movie> getAllMovies(){
         return movieService.getAllMovies();
     }
 
-    @GetMapping("/consume")
-    public List<Movie> consume(){
-        return recommendationService.consumeMovies();
-    }
 
-    @GetMapping("/{genre}")
+
+    @GetMapping("/recommendations/{genre}")
     public List<Movie> getListOfMoviesByRecommendation(@PathVariable String genre){
         return recommendationService.getListOfMoviesByRecommendation(recommendationService.consumeMovies(), genre);
     }
